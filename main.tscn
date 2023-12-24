@@ -1,0 +1,378 @@
+[gd_scene load_steps=11 format=3 uid="uid://bheubqlkp0r4i"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_71uri"]
+[ext_resource type="Script" path="res://game.gd" id="2_7yrvg"]
+[ext_resource type="Script" path="res://gui.gd" id="3_xm1tj"]
+[ext_resource type="Script" path="res://connect_button.gd" id="4_xuuy2"]
+[ext_resource type="PackedScene" uid="uid://cmojx6yqqf7ww" path="res://player/health_bar.tscn" id="5_kbnmo"]
+[ext_resource type="Script" path="res://score.gd" id="6_dkxwn"]
+[ext_resource type="Script" path="res://nat_type.gd" id="7_w886c"]
+
+[sub_resource type="Theme" id="Theme_3l7aj"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_syxad"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_bbgi0"]
+default_font_size = 12
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("game", "local_user_id")]
+script = ExtResource("1_71uri")
+game = NodePath("Game")
+local_user_id = NodePath("LocalUserId/Field")
+
+[node name="Game" type="Node2D" parent="."]
+script = ExtResource("2_7yrvg")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Game"]
+_spawnable_scenes = PackedStringArray("res://player/Player.tscn", "res://levels/basic_level.tscn")
+spawn_path = NodePath("../Level")
+
+[node name="Level" type="Node2D" parent="Game"]
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 480.0
+script = ExtResource("3_xm1tj")
+
+[node name="MainMenu" type="Control" parent="GUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenuOptions" type="Control" parent="GUI/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CreateOptions" type="VBoxContainer" parent="GUI/MainMenu/MainMenuOptions"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 250.0
+offset_top = -70.0
+offset_right = -250.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CreateServerButton" type="Button" parent="GUI/MainMenu/MainMenuOptions/CreateOptions"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Create Server"
+
+[node name="CreateClientButton" type="Button" parent="GUI/MainMenu/MainMenuOptions/CreateOptions"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Create Client"
+
+[node name="ConnectToServerMenu" type="Control" parent="GUI/MainMenu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConnectFields" type="VBoxContainer" parent="GUI/MainMenu/ConnectToServerMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.5
+anchor_right = 0.75
+anchor_bottom = 0.5
+offset_top = -50.0
+offset_right = -3.05176e-05
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SocketId" type="HBoxContainer" parent="GUI/MainMenu/ConnectToServerMenu/ConnectFields"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SocketIdField" type="LineEdit" parent="GUI/MainMenu/ConnectToServerMenu/ConnectFields/SocketId"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Socket ID"
+
+[node name="RemoteUserId" type="HBoxContainer" parent="GUI/MainMenu/ConnectToServerMenu/ConnectFields"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RemoteUserIdField" type="LineEdit" parent="GUI/MainMenu/ConnectToServerMenu/ConnectFields/RemoteUserId"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Remote User ID"
+
+[node name="ConnectButton" type="Button" parent="GUI/MainMenu/ConnectToServerMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = 60.0
+offset_right = 37.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Connect"
+script = ExtResource("4_xuuy2")
+
+[node name="BackButton" type="Button" parent="GUI/MainMenu/ConnectToServerMenu"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Back"
+
+[node name="ConnectionStatus" type="Control" parent="GUI"]
+visible = false
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 480.0
+
+[node name="Status" type="Label" parent="GUI/ConnectionStatus"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Connecting..."
+
+[node name="BackButton" type="Button" parent="GUI/ConnectionStatus"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = 19.5
+offset_right = 22.5
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+
+[node name="Login" type="Control" parent="GUI"]
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 480.0
+
+[node name="DevCredential" type="HBoxContainer" parent="GUI/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -20.0
+offset_right = 130.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Field" type="LineEdit" parent="GUI/Login/DevCredential"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Dev Credential"
+
+[node name="DeviceIdButton" type="Button" parent="GUI/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = 66.0
+offset_right = 57.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Use Device ID"
+
+[node name="LoginButton" type="Button" parent="GUI/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = 28.0
+offset_right = 25.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Login"
+
+[node name="LoginStatus" type="Control" parent="GUI"]
+visible = false
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 480.0
+
+[node name="Label" type="Label" parent="GUI/LoginStatus"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -13.0
+offset_right = 46.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Logging in..."
+
+[node name="Button" type="Button" parent="GUI/LoginStatus"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = 16.0
+offset_right = 22.5
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+
+[node name="PlayerHUD" type="Control" parent="GUI"]
+visible = false
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 480.0
+
+[node name="HealthBar" parent="GUI/PlayerHUD" instance=ExtResource("5_kbnmo")]
+layout_mode = 0
+
+[node name="Score" type="Label" parent="GUI/PlayerHUD"]
+layout_mode = 0
+offset_top = 26.0
+offset_right = 52.0
+offset_bottom = 52.0
+text = "Score: "
+script = ExtResource("6_dkxwn")
+
+[node name="Amount" type="Label" parent="GUI/PlayerHUD/Score"]
+layout_mode = 0
+offset_left = 52.0
+offset_right = 92.0
+offset_bottom = 26.0
+text = "0"
+vertical_alignment = 1
+
+[node name="DisconnectButton" type="Button" parent="GUI/PlayerHUD"]
+layout_mode = 0
+offset_top = 449.0
+offset_right = 94.0
+offset_bottom = 480.0
+text = "Disconnect"
+
+[node name="LocalUserId" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 333.0
+offset_top = 2.0
+offset_right = 638.0
+offset_bottom = 27.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="LocalUserId"]
+layout_mode = 2
+theme = SubResource("Theme_3l7aj")
+text = "Local User ID:"
+
+[node name="Field" type="LineEdit" parent="LocalUserId"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_syxad")
+editable = false
+
+[node name="NATType" type="HBoxContainer" parent="."]
+offset_left = 514.0
+offset_top = 460.0
+offset_right = 664.0
+offset_bottom = 480.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_bbgi0")
+script = ExtResource("7_w886c")
+
+[node name="NATTypeTitle" type="Label" parent="NATType"]
+layout_mode = 2
+text = "Nat Type:"
+
+[node name="NATTypeLabel" type="RichTextLabel" parent="NATType"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=black]None[/color]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+
+[connection signal="pressed" from="GUI/MainMenu/MainMenuOptions/CreateOptions/CreateServerButton" to="Game" method="_on_create_server_button_pressed"]
+[connection signal="pressed" from="GUI/MainMenu/MainMenuOptions/CreateOptions/CreateServerButton" to="GUI" method="_on_create_server_button_pressed"]
+[connection signal="pressed" from="GUI/MainMenu/MainMenuOptions/CreateOptions/CreateClientButton" to="GUI" method="_on_create_client_button_pressed"]
+[connection signal="connect_pressed" from="GUI/MainMenu/ConnectToServerMenu/ConnectButton" to="Game" method="_on_connect_to_server_menu_connect_pressed"]
+[connection signal="pressed" from="GUI/MainMenu/ConnectToServerMenu/ConnectButton" to="GUI" method="_on_server_connect_button_pressed"]
+[connection signal="pressed" from="GUI/MainMenu/ConnectToServerMenu/ConnectButton" to="GUI/MainMenu/ConnectToServerMenu/ConnectButton" method="_on_pressed"]
+[connection signal="pressed" from="GUI/MainMenu/ConnectToServerMenu/BackButton" to="GUI" method="_on_connect_to_server_menu_back_button_pressed"]
+[connection signal="pressed" from="GUI/ConnectionStatus/BackButton" to="GUI" method="_on_connection_status_back_button_pressed"]
+[connection signal="pressed" from="GUI/Login/DeviceIdButton" to="." method="_on_device_id_button_pressed"]
+[connection signal="pressed" from="GUI/Login/DeviceIdButton" to="GUI" method="_on_device_id_login_button_pressed"]
+[connection signal="pressed" from="GUI/Login/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="GUI/Login/LoginButton" to="GUI" method="_on_login_button_pressed"]
+[connection signal="pressed" from="GUI/LoginStatus/Button" to="GUI" method="_on_login_back_button_pressed"]
+[connection signal="pressed" from="GUI/PlayerHUD/DisconnectButton" to="Game" method="_on_disconnect_button_pressed"]

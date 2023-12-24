@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://wcdhuf308jj6"]
+
+[ext_resource type="Texture2D" uid="uid://cwybnn2ajy5dk" path="res://sprites/player.png" id="1_1umq1"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_h4f5j"]
+[ext_resource type="Texture2D" uid="uid://d13ypkln3lxqj" path="res://sprites/gun.png" id="2_67th0"]
+[ext_resource type="Script" path="res://player/weapon.gd" id="2_jh30v"]
+[ext_resource type="PackedScene" uid="uid://bv50bxk6xbfby" path="res://player/Bullet.tscn" id="3_v1g6m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7iti"]
+size = Vector2(14, 14)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8xm6g"]
+properties/0/path = NodePath(".:owner_id")
+properties/0/spawn = true
+properties/0/sync = false
+properties/0/watch = false
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/sync = false
+properties/1/watch = false
+properties/2/path = NodePath(".:current_health")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_h4f5j")
+speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_m7iti")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_1umq1")
+
+[node name="Gun" type="Node2D" parent="."]
+script = ExtResource("2_jh30v")
+damage = 10
+projectile = ExtResource("3_v1g6m")
+
+[node name="GunSprite" type="Sprite2D" parent="Gun"]
+position = Vector2(10, 0)
+texture = ExtResource("2_67th0")
+
+[node name="FirePos" type="Node2D" parent="Gun"]
+position = Vector2(13, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8xm6g")

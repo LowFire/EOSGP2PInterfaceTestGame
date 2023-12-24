@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmojx6yqqf7ww"]
+
+[ext_resource type="Script" path="res://player/health_bar.gd" id="1_opqp3"]
+[ext_resource type="Texture2D" uid="uid://4bis55y6suwg" path="res://sprites/health_bar.png" id="1_xv6pw"]
+
+[node name="HealthBar" type="HBoxContainer"]
+script = ExtResource("1_opqp3")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "HP"
+vertical_alignment = 1
+
+[node name="TexturedProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 2
+texture_progress = ExtResource("1_xv6pw")
