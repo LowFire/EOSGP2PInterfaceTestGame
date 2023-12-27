@@ -3,7 +3,7 @@ extends Control
 @onready var main_menu = $MainMenu
 @onready var main_menu_options := $MainMenu/MainMenuOptions
 @onready var connect_to_server_menu := $MainMenu/ConnectToServerMenu
-@onready var local_user_id_field := $MainMenu/LocalUserId
+@onready var local_user_id_field := $"../LocalUserId"
 @onready var connection_status := $ConnectionStatus
 @onready var login := $Login
 @onready var login_status := $LoginStatus

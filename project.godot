@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-EOS_tick="*res://addons/epic-online-services-godot/tick.gd"
 GlobalData="*res://global_data.gd"
 ProductDetails="*res://product_details.gd"
 EOSGRuntime="*res://addons/epic-online-services-godot/runtime.gd"

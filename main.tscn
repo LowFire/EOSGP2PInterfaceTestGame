@@ -107,25 +107,16 @@ grow_vertical = 2
 
 [node name="ConnectFields" type="VBoxContainer" parent="GUI/MainMenu/ConnectToServerMenu"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.25
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.75
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -50.0
-offset_right = -3.05176e-05
-offset_bottom = 50.0
+offset_left = 175.0
+offset_top = -15.0
+offset_right = -170.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="SocketId" type="HBoxContainer" parent="GUI/MainMenu/ConnectToServerMenu/ConnectFields"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="SocketIdField" type="LineEdit" parent="GUI/MainMenu/ConnectToServerMenu/ConnectFields/SocketId"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Socket ID"
 
 [node name="RemoteUserId" type="HBoxContainer" parent="GUI/MainMenu/ConnectToServerMenu/ConnectFields"]
 layout_mode = 2
@@ -144,9 +135,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -35.0
-offset_top = 60.0
+offset_top = 22.0
 offset_right = 37.0
-offset_bottom = 91.0
+offset_bottom = 53.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Connect"

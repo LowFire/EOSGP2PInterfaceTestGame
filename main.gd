@@ -29,11 +29,7 @@ func _ready():
 
 	var create_result = 0
 	var attempt_count = 0
-	while not create_result:
-		#just keep going until it finally works.
-		attempt_count += 1
-		print("Attempt " + str(attempt_count))
-		create_result = EOS.Platform.PlatformInterface.create(create_options)
+	create_result = EOS.Platform.PlatformInterface.create(create_options)
 		
 	print("EOS Platform Created")
 
